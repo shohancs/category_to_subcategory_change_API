@@ -1,0 +1,37 @@
+API:
+//Jason_encode ei data se receive kore karo kace patabe
+
+Route::get('get_subcat/{id}', function($click_id) {
+   return json_encode(App\Models\SubCategory::where('category_id', $click_id)->get());
+});
+
+CREATE.PHP:
+
+<script>
+
+$('#cat_id').change(function() {
+
+var catID = $('#cat_id').val(); //catid er value niya aissa porci
+
+$('sub_id').html(); // html subid er sob data niya aissa porci
+
+var option = ""; //sub er foreach loop er sob data eikkhan ea dekhabe tai blank
+
+//Ekhon api er kaj, data koi patabo
+$.get("http://127.0.0.1:8000/get_subcat/" + catID, function(data) {
+  data = JSON.parse(data) //jason.parse data receive korea
+
+  //jei data niya ashce sei data dekhabo tai loop chalabo
+  data.foreach( function(element) {
+	option += "<option value=' " + element.id + " '>" + element.name + "<option>"
+  )};
+
+$('sub_id').html(option); // sub cat er html ta rakhbo ar blank option ta dukai dibo
+
+});
+
+});
+
+
+</script>
+
